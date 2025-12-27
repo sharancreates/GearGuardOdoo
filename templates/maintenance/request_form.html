@@ -36,7 +36,7 @@
             <select name="technician_id" id="technician_id">
                 <option value="">(Auto-filled)</option>
                 {% for user in users %}
-                <option value="{{ user.user_id }}">{{ user.username }}</option>
+                <option value="{{ user.user_id }}">{{ user.name }}</option>
                 {% endfor %}
             </select>
         </div><br>
@@ -61,7 +61,6 @@
 
 {% block scripts %}
 <script>
-// Auto-fill Logic
 document.getElementById('equipment_id').addEventListener('change', function() {
     let eqId = this.value;
     if(!eqId) return;
@@ -78,7 +77,6 @@ document.getElementById('equipment_id').addEventListener('change', function() {
         });
 });
 
-// Show/Hide Date Field Logic
 document.getElementById('request_type').addEventListener('change', function() {
     let wrapper = document.getElementById('scheduled_date_wrapper');
     if(this.value === 'Preventive') {
