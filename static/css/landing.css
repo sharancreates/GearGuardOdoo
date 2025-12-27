@@ -42,11 +42,19 @@ body {
     z-index: -1;
 }
 
-/* Typography Gradient */
+
 .text-indigo-gradient {
     background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
-    -webkit-background-clip: text;  
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
+}
+
+
+.text-indigo-fallback {
+    color: #818cf8;
 }
 
 /* Navbar Style */

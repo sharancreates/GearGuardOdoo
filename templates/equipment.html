@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Equipment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/equipment.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-section"><i class="fas fa-bolt"></i> <span>AssetFlow</span></div>
+            <nav>
+                <a href="#"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="teams.html"><i class="fas fa-users"></i> Teams</a>
+                <a href="#" class="active"><i class="fas fa-tools"></i> Equipment</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header class="content-header">
+                <h1>Equipment Inventory</h1>
+                <button class="add-btn">+ New Asset</button>
+            </header>
+
+            <div class="table-card">
+                <table class="item-table">
+                    <thead>
+                        <tr>
+                            <th>Asset Name</th>
+                            <th>Status</th>
+                            <th>Assigned To</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MacBook Pro M3</td>
+                            <td><span class="tag in-use">In Use</span></td>
+                            <td>Sharanya</td>
+                            <td><i class="fas fa-edit"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Dell 27" Monitor</td>
+                            <td><span class="tag in-use">In Use</span></td>
+                            <td>Joyita</td>
+                            <td><i class="fas fa-edit"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Logitech MX Master</td>
+                            <td><span class="tag available">Available</span></td>
+                            <td>—</td>
+                            <td><i class="fas fa-edit"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

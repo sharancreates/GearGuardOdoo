@@ -19,7 +19,7 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template('auth.html')
+        return render_template('landing.html')
     
     register_bp(app)
 

@@ -1,0 +1,147 @@
+/* =========================================
+   EQUIPMENT FORM STYLES
+   ========================================= */
+
+/* 1. The Form Card container */
+form {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.1); /* Subtle shadow */
+    max-width: 600px;
+    margin: 0 auto;
+    border-top: 5px solid #4e73df; /* Indigo accent bar at top */
+}
+
+/* 2. Headings inside the form */
+form h3 {
+    font-size: 1.1rem;
+    color: #2e384d;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e3e6f0;
+    padding-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+/* 3. Input Labels */
+form label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #4e73df; /* Indigo labels */
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* 4. Inputs and Dropdowns */
+form input[type="text"],
+form select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #2e384d;
+    background-color: #f8f9fc;
+    border: 1px solid #d1d3e2;
+    border-radius: 8px;
+    box-sizing: border-box; /* Ensures padding doesn't break layout */
+    transition: all 0.2s ease;
+    display: block;
+}
+
+/* Focus State (Glow effect) */
+form input:focus,
+form select:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #4e73df;
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+}
+
+/* 5. The "Save Equipment" Button */
+form button[type="submit"] {
+    background-color: #1cc88a; /* Success Green */
+    color: white;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 2rem;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form button[type="submit"]:hover {
+    background-color: #169b6b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(28, 200, 138, 0.3);
+}
+
+/* 6. The Cancel Link */
+form > a {
+    display: block;
+    text-align: center;
+    margin-top: 1.2rem;
+    color: #858796;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+form > a:hover {
+    color: #e74a3b; /* Red on hover */
+}
+
+/* =========================================
+   SPECIAL ELEMENTS
+   ========================================= */
+
+/* The "Auto-Fill" Grey Box */
+/* (This overrides the inline styles if you remove them from HTML) */
+.auto-fill-section {
+    background-color: #f1f3f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    border: 1px dashed #b7b9cc;
+}
+
+/* The "View History" Smart Button above the form */
+a[href*="maintenance"] {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ffffff;
+    color: #4e73df;
+    border: 2px solid #4e73df;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+a[href*="maintenance"]:hover {
+    background-color: #4e73df;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(78, 115, 223, 0.25);
+}
+
+/* Badge inside the smart button */
+a[href*="maintenance"] span {
+    background-color: #e74a3b !important; /* Force red background */
+    color: white !important;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
