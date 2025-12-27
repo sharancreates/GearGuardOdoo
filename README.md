@@ -1,4 +1,4 @@
-# GearGuard 🛡️
+# GearGuard 
 
 **A smarter way to track equipment maintenance.**
 
