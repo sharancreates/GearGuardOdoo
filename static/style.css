@@ -1,0 +1,152 @@
+:root {
+    --primary: #4361ee;
+    --bg-light: #f8f9fa;
+    --text-dark: #2b2d42;
+    --border-soft: #e9ecef;
+    --danger: #ef233c;
+    --info: #48cae4;
+    --success: #2ecc71;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Sidebar Styling */
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 250px;
+    transition: all 0.25s ease;
+}
+
+.sidebar-heading {
+    padding: 1.5rem 1.25rem;
+    font-size: 1.25rem;
+    color: var(--primary);
+}
+
+.list-group-item {
+    border: none;
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.list-group-item.active {
+    background-color: #f0f3ff;
+    color: var(--primary);
+    border-right: 4px solid var(--primary);
+}
+
+/* Navbar & Search */
+.search-container {
+    background: #f1f3f5;
+    border-radius: 10px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+/* KPI Cards */
+.stat-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border-soft);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.border-critical {
+    border-top: 4px solid var(--danger);
+}
+
+.border-util {
+    border-top: 4px solid var(--info);
+}
+
+.border-open {
+    border-top: 4px solid var(--success);
+}
+
+.badge-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.2rem;
+}
+
+.bg-soft-danger {
+    background: #ffe5e5;
+}
+
+.bg-soft-info {
+    background: #e0f7fa;
+}
+
+.bg-soft-success {
+    background: #e8f5e9;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* Table */
+.table-container {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: #f8f9fa;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: #adb5bd;
+    padding: 1.2rem;
+}
+
+.table tbody td {
+    padding: 1.2rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.cat-tag {
+    background: #e9ecef;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
