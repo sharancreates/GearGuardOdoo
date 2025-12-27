@@ -27,8 +27,9 @@ def dashboard():
     ).filter(MaintenanceRequest.stage.in_(['New', 'In Progress'])).count()
 
     my_tasks = MaintenanceRequest.query.filter_by(
-        technician_id=current_user.user_id,
-        stage='In Progress'
+        technician_id=current_user.user_id
+    ).filter(
+        MaintenanceRequest.stage.in_(['New', 'In Progress'])
     ).all()
     
     my_task_count = len(my_tasks)

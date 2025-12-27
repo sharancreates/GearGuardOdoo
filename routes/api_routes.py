@@ -17,18 +17,20 @@ def get_equipment_details(id):
 
 @api_bp.route('/calendar/events')
 def get_calendar_events():
-    events = MaintenanceRequest.query.filter_by(
-        request_type='Preventive'
-    ).filter(MaintenanceRequest.scheduled_date.isnot(None)).all()
+    events = MaintenanceRequest.query.filter(
+        MaintenanceRequest.scheduled_date.isnot(None)
+    ).all()
     
     event_list = []
     for req in events:
+        color = '#28a745' if req.request_type == 'Preventive' else '#dc3545' # Green for Prev, Red for Corr
+        
         event_list.append({
             'id': req.request_id,
             'title': f"{req.equipment.name} - {req.subject}",
             'start': req.scheduled_date.isoformat(), # ISO format (YYYY-MM-DD) is required by JS
             'url': f"/maintenance/request/{req.request_id}", # Optional: Link to details
-            'color': '#3788d8' # Optional: Blue for preventive
+            'color': color 
         })
         
     return jsonify(event_list)

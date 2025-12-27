@@ -112,7 +112,8 @@
                     {% for task in my_tasks %}
                     <li class="list-group-item">
                         <span>{{ task.subject }}</span>
-                        <a href="#" class="text-primary"><i class="fas fa-arrow-right"></i></a>
+                        <a href="{{ url_for('maintenance.edit_request', request_id=task.request_id) }}"
+                            class="text-primary"><i class="fas fa-arrow-right"></i></a>
                     </li>
                     {% else %}
                     <li class="list-group-item text-muted">No pending tasks. Good job!</li>
