@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="../static/css/auth.css">
 </head>
 
 <body class="auth-bg">
@@ -21,14 +21,14 @@
                     <h3>Welcome Back</h3>
                     <p>Enter your credentials to continue</p>
                 </div>
-                <form id="loginForm">
+                <form id="loginForm" method="POST" action="{{ url_for('auth.login') }}">
                     <div class="mb-3">
                         <label class="form-label small fw-bold">WORK EMAIL</label>
-                        <input type="email" class="form-control" placeholder="name@company.com" required>
+                        <input type="email" class="form-control" placeholder="name@company.com" required name="email">
                     </div>
                     <div class="mb-4">
                         <label class="form-label small fw-bold">PASSWORD</label>
-                        <input type="password" class="form-control" placeholder="••••••••" required>
+                        <input type="password" class="form-control" placeholder="••••••••" required name="password">
                     </div>
                     <button type="submit" class="btn btn-primary-grad w-100 py-2 fw-bold mb-3">Login to
                         Dashboard</button>
@@ -43,24 +43,18 @@
                     <h3>Join AssetFlow</h3>
                     <p>Start managing your teams and gear</p>
                 </div>
-                <form id="signupForm">
+                <form id="signupForm" method="POST" action="{{ url_for('auth.register') }}">
                     <div class="row">
-                        <div class="col-6 mb-3">
-                            <label class="form-label small fw-bold">FIRST NAME</label>
-                            <input type="text" class="form-control" placeholder="John" required>
+                            <label class="form-label small fw-bold">NAME</label>
+                            <input type="text" class="form-control" placeholder="John" name="name" required>
                         </div>
-                        <div class="col-6 mb-3">
-                            <label class="form-label small fw-bold">LAST NAME</label>
-                            <input type="text" class="form-control" placeholder="Doe" required>
-                        </div>
-                    </div>
                     <div class="mb-3">
-                        <label class="form-label small fw-bold">COMPANY NAME</label>
-                        <input type="text" class="form-control" placeholder="Acme Corp" required>
+                        <label class="form-label small fw-bold">WORK EMAIL</label>
+                        <input type="email" class="form-control" placeholder="name@company.com" required name="email">
                     </div>
                     <div class="mb-4">
                         <label class="form-label small fw-bold">CHOOSE PASSWORD</label>
-                        <input type="password" class="form-control" placeholder="••••••••" required>
+                        <input type="password" class="form-control" placeholder="••••••••" name="password" required>
                     </div>
                     <button type="submit" class="btn btn-primary-grad w-100 py-2 fw-bold mb-3">Get Started</button>
                     <p class="text-center small">Have an account? <a href="#" id="toLogin"
@@ -70,7 +64,7 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="auth.js"></script>
+    <script src="../static/js/auth.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GearGuard Maintenance</title>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+</head>
+<body>
+
+    <nav>
+        <h1>GearGuard</h1>
+        {% if current_user.is_authenticated %}
+        <ul>
+            <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('maintenance.kanban_board') }}">Kanban Board</a></li>
+            <li><a href="{{ url_for('equipment.list_equipment') }}">Equipment</a></li>
+            <li><a href="{{ url_for('maintenance.calendar_view') }}">Calendar</a></li>
+            <li>User: {{ current_user.username }} (<a href="{{ url_for('auth.logout') }}">Logout</a>)</li>
+        </ul>
+        {% endif %}
+    </nav>
+
+    <hr>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li><strong>{{ category.upper() }}:</strong> {{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

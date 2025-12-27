@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Dashboard</h2>
+
+    <section>
+        <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+            <h3>Active Requests</h3>
+            <p>{{ total_active }}</p>
+        </div>
+        <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+            <h3>Corrective</h3>
+            <p>{{ corrective_count }}</p>
+        </div>
+        <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+            <h3>Preventive</h3>
+            <p>{{ preventive_count }}</p>
+        </div>
+        <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+            <h3>My Tasks</h3>
+            <p>{{ my_task_count }}</p>
+        </div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h3>Recent Activity</h3>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Equipment</th>
+                    <th>Date</th>
+                    <th>Stage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in recent_activity %}
+                <tr>
+                    <td>{{ req.subject }}</td>
+                    <td>{{ req.equipment.name }}</td>
+                    <td>{{ req.created_at.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ req.stage }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <section>
+        <h3>My Pending Tasks</h3>
+        <ul>
+            {% for task in my_tasks %}
+            <li>
+                {{ task.subject }} - <a href="#">View</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

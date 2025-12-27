@@ -1,0 +1,148 @@
+:root {
+    --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-color: #f8f9fc;
+    --sidebar-color: #ffffff;
+    --text-main: #2d3436;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-color);
+    border-right: 1px solid #e0e0e0;
+    padding: 30px 20px;
+}
+
+.logo-section {
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    color: #764ba2;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #636e72;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.sidebar nav a.active, .sidebar nav a:hover {
+    background: #f1f3ff;
+    color: #667eea;
+}
+
+/* Main Content */
+.content {
+    flex: 1;
+    padding: 40px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.add-btn {
+    background: var(--primary-grad);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Team Cards Grid */
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.member-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border: 1px solid #edf2f7;
+    transition: transform 0.3s;
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+}
+
+.member-card.leader {
+    border: 2px solid #764ba2;
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #764ba2;
+    color: white;
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    background: #eeeefd;
+    color: #667eea;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.member-card h3 { margin-bottom: 5px; font-size: 1.1rem; }
+.role { color: #b2bec3; font-size: 0.9rem; margin-bottom: 15px; }
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #f1f3ff;
+    padding-top: 15px;
+    font-size: 0.8rem;
+}
+
+.status.online { color: #27ae60; font-weight: bold; }
+.status.offline { color: #95a5a6; }

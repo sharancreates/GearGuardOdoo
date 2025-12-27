@@ -150,3 +150,24 @@ body {
     font-size: 0.75rem;
     font-weight: 600;
 }
+
+.btn {
+    background-color: #4361ee;
+    box-shadow: #2b2d4233 0px 4px 12px;
+}
+
+.btn-pop {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-pop:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: #13267a;
+}
+
+.ra {
+    border-radius: 16px;
+    background-color: #818df886 !important;
+    
+}

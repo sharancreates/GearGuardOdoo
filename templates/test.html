@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GearGuard - Maintenance Tracker</title>
+    <link rel="stylesheet" href="../static/css/test.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="status-bar">
+            <div class="stage active">New Request</div>
+            <div class="stage">In Progress</div>
+            <div class="stage">Repaired</div>
+            <div class="stage">Scrap</div>
+        </header>
+
+        <main class="sketch-card">
+            <div class="form-header">
+                <label>Subject?</label>
+                <input type="text" class="title-input" placeholder="Test activity">
+            </div>
+
+            <div class="form-grid">
+                <div class="column">
+                    <div class="input-group">
+                        <label>Maintenance For:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="equip" name="m_for" value="equipment" checked>
+                            <label for="equip">Equipment</label>
+                            <input type="radio" id="wc" name="m_for" value="work_center">
+                            <label for="wc">Work Center</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group" id="equip_field">
+                        <label>Equipment</label>
+                        <select>
+                            <option>Acer Laptop/LP/203/19281928</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Category</label>
+                        <input type="text" placeholder="Computers">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Request Date?</label>
+                        <input type="date" value="2025-12-28">
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="input-group">
+                        <label>Technician</label>
+                        <input type="text" placeholder="Mitchell Admin">
+                    </div>
+                    <div class="input-group">
+                        <label>Scheduled Date?</label>
+                        <input type="datetime-local">
+                    </div>
+                    <div class="input-group">
+                        <label>Duration</label>
+                        <div class="duration-box">
+                            <input type="text" value="00:00"> <span>hours</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Priority</label>
+                        <div class="stars">★★★☆☆</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs-container">
+                <div class="tab-headers">
+                    <button class="tab-btn active">Notes</button>
+                    <button class="tab-btn">Instructions</button>
+                </div>
+                <div class="tab-content">
+                    <textarea placeholder="Write maintenance notes here..."></textarea>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Maintenance History</h2>
+    <h3>Machine: {{ equipment.name }} ({{ equipment.serial_number }})</h3>
+
+    <p>
+        <a href="{{ url_for('equipment.edit_equipment', id=equipment.equipment_id) }}"><- Back to Equipment Details</a>
+    </p>
+
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Date Created</th>
+                <th>Subject</th>
+                <th>Type</th>
+                <th>Assigned To</th>
+                <th>Stage</th>
+                <th>Duration (Hrs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in requests %}
+            <tr>
+                <td>{{ req.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>{{ req.subject }}</td>
+                <td>{{ req.request_type }}</td>
+                <td>{{ req.technician.username if req.technician else 'Unassigned' }}</td>
+                <td>{{ req.stage }}</td>
+                <td>{{ req.duration_hours }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" align="center">No maintenance history found for this machine.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

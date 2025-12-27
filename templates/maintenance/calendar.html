@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Preventive Calendar</h2>
+    <div id="calendar"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: '/api/calendar/events',
+        eventClick: function(info) {
+            alert('Event: ' + info.event.title);
+        }
+    });
+    calendar.render();
+});
+</script>
+{% endblock %}

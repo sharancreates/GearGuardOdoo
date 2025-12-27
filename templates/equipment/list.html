@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Equipment Inventory</h2>
+    <a href="{{ url_for('equipment.new_equipment') }}">[+ Add Equipment]</a>
+    <br><br>
+
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Serial #</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Team</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in equipment %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.serial_number }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.work_centre.name if item.work_centre else 'Unassigned' }}</td>
+                <td>{{ item.default_team.name if item.default_team else 'None' }}</td>
+                <td>
+                    <a href="{{ url_for('equipment.edit_equipment', id=item.equipment_id) }}">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

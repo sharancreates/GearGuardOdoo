@@ -1,0 +1,45 @@
+/* GearGuard Custom Theme */
+.gearguard_sketch_form {
+    background-color: #fcfcfc !important; /* Light off-white background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .o_form_sheet {
+        border: 2px solid #333333 !important;
+        border-radius: 2px 8px 5px 10px / 10px 5px 8px 2px !important; /* Slightly irregular for hand-drawn look */
+        box-shadow: 5px 5px 0px #e0e0e0;
+        background: white !important;
+    }
+
+    /* Style inputs as simple hand-drawn lines */
+    input.o_input, select.o_input {
+        border: none !important;
+        border-bottom: 2px solid #666 !important;
+        background-color: transparent !important;
+        border-radius: 0 !important;
+    }
+
+    /* Title styling */
+    .sketch_title {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    /* Status Bar Customization */
+    .o_statusbar_status {
+        background: #fff !important;
+        .o_arrow_button {
+            border-radius: 15px !important;
+            margin-left: 5px;
+            &.btn-primary {
+                background-color: #f1f1f1 !important;
+                color: black !important;
+                border: 2px solid #333 !important;
+            }
+        }
+    }
+
+    /* Priority Stars */
+    .o_priority_star.fa-star {
+        color: #ffca28 !important;
+    }
+}

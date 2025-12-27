@@ -1,0 +1,140 @@
+:root {
+    --indigo-primary: #6366f1;
+    --purple-primary: #a855f7;
+    --dark-base: #020617;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--dark-base);
+    overflow-x: hidden;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+.fw-800 {
+    font-weight: 800;
+}
+
+/* Background with Industrial Image */
+.hero-bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    filter: brightness(0.6) grayscale(20%);
+    z-index: -2;
+}
+
+.hero-overlay-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.4) 100%);
+    z-index: -1;
+}
+
+/* Typography Gradient */
+.text-indigo-gradient {
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    -webkit-background-clip: text;  
+    -webkit-text-fill-color: transparent;
+}
+
+/* Navbar Style */
+.navbar {
+    padding: 25px 0;
+    border-bottom: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+.btn-indigo {
+    background-color: var(--indigo-primary);
+    color: white;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-indigo:hover {
+    background-color: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Pill Badge */
+.pill-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 100px;
+    color: #818cf8;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+/* Action Cards (Glassmorphism) */
+.action-card {
+    display: flex;
+    align-items: center;
+    padding: 35px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(15px);
+    border-radius: 28px;
+    text-decoration: none !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-card:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--indigo-primary);
+}
+
+.card-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-right: 25px;
+}
+
+.bg-indigo-soft {
+    background: linear-gradient(135deg, #6366f1, #4338ca);
+    color: white;
+}
+
+.bg-purple-soft {
+    background: linear-gradient(135deg, #a855f7, #7e22ce);
+    color: white;
+}
+
+.arrow {
+    position: absolute;
+    right: 30px;
+    color: white;
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+.action-card:hover .arrow {
+    opacity: 1;
+    transform: translateX(5px);
+}

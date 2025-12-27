@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ 'Edit' if equipment else 'New' }} Equipment</h2>
+
+    {% if equipment %}
+    <p>
+        <a href="{{ url_for('maintenance.list_requests', equipment_id=equipment.equipment_id) }}">
+            View Maintenance History ({{ equipment.request_count }})
+        </a>
+    </p>
+    {% endif %}
+
+    <form method="POST">
+        <h3>Basic Details</h3>
+        <label>Equipment Name:</label><br>
+        <input type="text" name="name" value="{{ equipment.name if equipment else '' }}" required><br><br>
+
+        <label>Serial Number:</label><br>
+        <input type="text" name="serial_number" value="{{ equipment.serial_number if equipment else '' }}" required><br><br>
+
+        <label>Category:</label><br>
+        <input type="text" name="category" value="{{ equipment.category if equipment else '' }}"><br><br>
+
+        <label>Work Center (Location):</label><br>
+        <select name="work_centre_id">
+            <option value="">Select Location...</option>
+            {% for wc in work_centres %}
+            <option value="{{ wc.centre_id }}" {% if equipment and equipment.work_centre_id == wc.centre_id %}selected{% endif %}>
+                {{ wc.name }}
+            </option>
+            {% endfor %}
+        </select><br><br>
+
+        <hr>
+        <h3>Auto-Fill Defaults</h3>
+        <p><em>When this machine breaks, who fixes it?</em></p>
+
+        <label>Default Team:</label><br>
+        <select name="default_team_id">
+            <option value="">Select Team...</option>
+            {% for team in teams %}
+            <option value="{{ team.team_id }}" {% if equipment and equipment.default_team_id == team.team_id %}selected{% endif %}>
+                {{ team.name }}
+            </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Default Technician:</label><br>
+        <select name="default_technician_id">
+            <option value="">Select Technician...</option>
+            {% for user in users %}
+            <option value="{{ user.user_id }}" {% if equipment and equipment.default_technician_id == user.user_id %}selected{% endif %}>
+                {{ user.username }} ({{ user.role }})
+            </option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Save Equipment</button>
+        <a href="{{ url_for('equipment.list_equipment') }}">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Maintenance Kanban</h2>
+    <a href="{{ url_for('maintenance.new_request') }}">[+ New Request]</a>
+    <br><br>
+
+    <div style="border: 1px solid gray; margin: 10px; padding: 10px;">
+        <h3>NEW</h3>
+        {% for req in new_reqs %}
+            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
+                <strong>{{ req.subject }}</strong> ({{ req.equipment.name }})<br>
+                Priority: {{ req.priority }}<br>
+                <a href="{{ url_for('maintenance.update_stage', request_id=req.request_id, new_stage='In Progress') }}">Move to In Progress -></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style="border: 1px solid orange; margin: 10px; padding: 10px;">
+        <h3>IN PROGRESS</h3>
+        {% for req in progress_reqs %}
+            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
+                <strong>{{ req.subject }}</strong> ({{ req.equipment.name }})<br>
+                <a href="{{ url_for('maintenance.update_stage', request_id=req.request_id, new_stage='Repaired') }}">Mark Done -></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style="border: 1px solid green; margin: 10px; padding: 10px;">
+        <h3>REPAIRED</h3>
+        {% for req in repaired_reqs %}
+            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
+                <strong>{{ req.subject }}</strong> ({{ req.equipment.name }})
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style="border: 1px solid black; background-color: #eee; margin: 10px; padding: 10px;">
+        <h3>SCRAP</h3>
+        {% for req in scrap_reqs %}
+            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
+                <strike>{{ req.subject }}</strike><br>
+                <small>Scrapped</small>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

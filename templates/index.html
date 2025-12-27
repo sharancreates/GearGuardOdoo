@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
@@ -28,6 +28,8 @@
                 <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-users me-3"></i>Teams</a>
                 <a href="#" class="list-group-item list-group-item-action"><i
                         class="fas fa-file-alt me-3"></i>Reporting</a>
+                        <a href="landing.html" class="list-group-item list-group-item-action text-danger"
+                    style="background-color: rgb(207, 168, 168);"><i class="fas fa-sign-out-alt"></i> LogOut</a>
             </div>
         </div>
 
@@ -39,9 +41,12 @@
                         <input type="text" id="dashboardSearch"
                             placeholder="Search for assets, technicians, or tickets...">
                     </div>
-                    <button class="btn btn-primary px-4 fw-bold shadow-sm" id="newRequestBtn">
+                    <button class="btn btn-pop btn-primary px-1 mx-1 fw-bold shadow-sm" id="newRequestBtn">
                         <i class="fas fa-plus me-2"></i>New Request
                     </button>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-pop btn-primary px-1 mx-1 fw-bold shadow-sm">
+                        <i class="fas fa-plus me-2"></i> Login/SignUp
+                    </a>
                 </div>
             </nav>
 
@@ -85,9 +90,9 @@
                 </div>
 
                 <div class="table-container shadow-sm">
-                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-light">
+                    <div class="p-3 ra border-bottom d-flex justify-content-between align-items-center bg-light">
                         <h6 class="mb-0 fw-bold">Recent Activities</h6>
-                        <button class="btn btn-sm btn-outline-secondary">View All</button>
+                        <button class="btn btn-sm btn-outline-secondary" style="color: aliceblue;">View All</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table align-middle mb-0" id="requestsTable">
@@ -111,7 +116,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js"></script>
+    <script src="../static/js/script.js"></script>
 </body>
 
 </html>
