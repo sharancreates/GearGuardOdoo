@@ -1,112 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ 'Edit' if equipment else 'New' }} Equipment - GearGuard</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<nav class="navbar">
-    <div class="container nav-container">
-        <a href="{{ url_for('main.dashboard') }}" class="nav-brand text-indigo-gradient">
-            <i class="fas fa-shield-alt me-2"></i>GearGuard
-        </a>
-        <ul class="nav-menu">
-            <li><a href="{{ url_for('main.dashboard') }}" class="nav-link">Dashboard</a></li>
-            <li><a href="{{ url_for('maintenance.kanban_board') }}" class="nav-link">Kanban</a></li>
-            <li><a href="{{ url_for('equipment.list_equipment') }}" class="nav-link active">Equipment</a></li>
-            <li><a href="{{ url_for('maintenance.calendar_view') }}" class="nav-link">Calendar</a></li>
-        </ul>
-        <div class="nav-user">
-            <span class="user-name">Hi, {{ current_user.username }}</span>
-            <a href="{{ url_for('auth.logout') }}" class="btn-logout" title="Logout">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-        </div>
-    </div>
-</nav>
+{% block title %}{{ 'Edit' if equipment else 'New' }} Equipment - GearGuard{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
+{% block content %}
 <div class="container py-4">
 
     <div style="max-width: 600px; margin: 0 auto; margin-bottom: 1rem; text-align: center;">
         <h2 class="text-indigo-gradient">{{ 'Edit' if equipment else 'New' }} Equipment</h2>
     </div>
 
-    {% if equipment %}
-    <div style="text-align: center;">
-        <p>
-            <a href="{{ url_for('maintenance.list_requests', equipment_id=equipment.equipment_id) }}">
-                <i class="fas fa-history me-2"></i>View Maintenance History 
-                <span style="background:var(--primary-color); color:white; padding: 2px 6px; border-radius:10px; font-size:0.8em; margin-left:5px;">
-                    {{ equipment.request_count }}
-                </span>
+    <div class="form-wrapper">
+        <!-- Scrapped Ribbon -->
+        {% if equipment and equipment.is_scrapped %}
+        <div class="ribbon-scrapped"></div>
+        {% endif %}
+
+        <!-- Smart Buttons Area -->
+        {% if equipment %}
+        <div class="smart-button-container">
+            <a href="{{ url_for('maintenance.list_requests', equipment_id=equipment.equipment_id) }}"
+                class="smart-button">
+                <div class="smart-button-icon">
+                    <i class="fas fa-wrench"></i>
+                </div>
+                <div class="smart-button-text">
+                    <span class="smart-button-value">{{ equipment.open_request_count }}</span>
+                    <span class="smart-button-label">Maintenance</span>
+                </div>
             </a>
-        </p>
-    </div>
-    {% endif %}
-
-    <form method="POST">
-        <h3>Basic Details</h3>
-        
-        <label>Equipment Name</label>
-        <input type="text" name="name" value="{{ equipment.name if equipment else '' }}" placeholder="e.g. CNC Machine X1" required>
-
-        <label>Serial Number</label>
-        <input type="text" name="serial_number" value="{{ equipment.serial_number if equipment else '' }}" placeholder="e.g. SN-998877" required>
-
-        <label>Category</label>
-        <input type="text" name="category" value="{{ equipment.category if equipment else '' }}" placeholder="e.g. Heavy Machinery">
-
-        <label>Work Center (Location)</label>
-        <select name="work_centre_id">
-            <option value="">Select Location...</option>
-            {% for wc in work_centres %}
-            <option value="{{ wc.centre_id }}" {% if equipment and equipment.work_centre_id == wc.centre_id %}selected{% endif %}>
-                {{ wc.name }}
-            </option>
-            {% endfor %}
-        </select>
-
-        <div style="background-color: #f1f3f9; padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px dashed #d1d3e2;">
-            <h3 style="margin-top:0; border:none; font-size: 0.95rem; color: var(--text-muted);">
-                <i class="fas fa-magic me-2"></i>Auto-Fill Defaults
-            </h3>
-            
-            <label>Default Maintenance Team</label>
-            <select name="default_team_id">
-                <option value="">Select Team...</option>
-                {% for team in teams %}
-                <option value="{{ team.team_id }}" {% if equipment and equipment.default_team_id == team.team_id %}selected{% endif %}>
-                    {{ team.name }}
-                </option>
-                {% endfor %}
-            </select>
-
-            <label>Default Technician</label>
-            <select name="default_technician_id">
-                <option value="">Select Technician...</option>
-                {% for user in users %}
-                <option value="{{ user.user_id }}" {% if equipment and equipment.default_technician_id == user.user_id %}selected{% endif %}>
-                    {{ user.username }} ({{ user.role }})
-                </option>
-                {% endfor %}
-            </select>
         </div>
+        {% endif %}
 
-        <button type="submit">
-            <i class="fas fa-save me-2"></i>Save Equipment
-        </button>
-        
-        <a href="{{ url_for('equipment.list_equipment') }}">Cancel</a>
-    </form>
+        <form method="POST">
+            <h3>Basic Details</h3>
 
+            <label>Equipment Name</label>
+            <input type="text" name="name" value="{{ equipment.name if equipment else '' }}"
+                placeholder="e.g. CNC Machine X1" required>
+
+            <label>Serial Number</label>
+            <input type="text" name="serial_number" value="{{ equipment.serial_number if equipment else '' }}"
+                placeholder="e.g. SN-998877" required>
+
+            <label>Category</label>
+            <input type="text" name="category" value="{{ equipment.category if equipment else '' }}"
+                placeholder="e.g. Heavy Machinery">
+
+            <label>Work Center (Location)</label>
+            <select name="work_centre_id">
+                <option value="">Select Location...</option>
+                {% for wc in work_centres %}
+                <option value="{{ wc.centre_id }}" {% if equipment and equipment.work_centre_id==wc.centre_id
+                    %}selected{% endif %}>
+                    {{ wc.name }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <div
+                style="background-color: #f1f3f9; padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border: 1px dashed #d1d3e2;">
+                <h3 style="margin-top:0; border:none; font-size: 0.95rem; color: var(--text-muted);">
+                    <i class="fas fa-magic me-2"></i>Auto-Fill Defaults
+                </h3>
+
+                <label>Default Maintenance Team</label>
+                <select name="default_team_id">
+                    <option value="">Select Team...</option>
+                    {% for team in teams %}
+                    <option value="{{ team.team_id }}" {% if equipment and equipment.default_team_id==team.team_id
+                        %}selected{% endif %}>
+                        {{ team.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <label>Default Technician</label>
+                <select name="default_technician_id">
+                    <option value="">Select Technician...</option>
+                    {% for user in users %}
+                    <option value="{{ user.user_id }}" {% if equipment and equipment.default_technician_id==user.user_id
+                        %}selected{% endif %}>
+                        {{ user.name }} ({{ user.role }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">
+                <i class="fas fa-save me-2"></i>Save Equipment
+            </button>
+
+            <a href="{{ url_for('equipment.list_equipment') }}">Cancel</a>
+        </form>
+    </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

@@ -30,21 +30,30 @@ def kanban_board():
 def new_request():
     if request.method == 'POST':
         s_date = request.form.get('scheduled_date')
-        scheduled_date = (
-            datetime.strptime(s_date, '%Y-%m-%d').date()
-            if s_date else None
-        )
+        try:
+            scheduled_date = (
+                datetime.strptime(s_date, '%Y-%m-%dT%H:%M')
+                if s_date else None
+            )
+        except ValueError:
+             scheduled_date = (
+                datetime.strptime(s_date, '%Y-%m-%d')
+                if s_date else None
+            )
+
+        duration_hours = request.form.get('duration_hours', 0.0)
 
         new_req = MaintenanceRequest(
             subject=request.form.get('subject'),
             description=request.form.get('description'),
             request_type=request.form.get('request_type'),
-            priority=request.form.get('priority'),
+            priority=request.form.get('priority', 'Normal'),
             stage='New',
             equipment_id=request.form.get('equipment_id'),
             team_id=request.form.get('team_id'),
             technician_id=request.form.get('technician_id'),
-            scheduled_date=scheduled_date
+            scheduled_date=scheduled_date,
+            duration_hours=float(duration_hours) if duration_hours else 0.0
         )
 
         db.session.add(new_req)
@@ -57,11 +66,57 @@ def new_request():
 
         return redirect(url_for('maintenance.kanban_board'))
 
+    start_date = request.args.get('date') # From calendar click
+
     return render_template(
         'maintenance/request_form.html',
         equipment_list=Equipment.query.filter_by(is_scrapped=False).all(),
         teams=MaintenanceTeams.query.all(),
-        users=User.query.all()
+        users=User.query.all(),
+        prefilled_date=start_date,
+        maintenance_request=None
+    )
+
+
+# -------------------------------
+# EDIT REQUEST (Fixes Calendar 404)
+# -------------------------------
+@maintenance_bp.route('/request/<int:request_id>', methods=['GET', 'POST'])
+@login_required
+def edit_request(request_id):
+    req = MaintenanceRequest.query.get_or_404(request_id)
+
+    if request.method == 'POST':
+        req.subject = request.form.get('subject')
+        req.description = request.form.get('description')
+        req.request_type = request.form.get('request_type')
+        req.priority = request.form.get('priority')
+        
+        req.equipment_id = request.form.get('equipment_id')
+        req.team_id = request.form.get('team_id')
+        req.technician_id = request.form.get('technician_id')
+        
+        # Date parsing
+        s_date = request.form.get('scheduled_date')
+        if s_date:
+            try:
+                req.scheduled_date = datetime.strptime(s_date, '%Y-%m-%dT%H:%M')
+            except ValueError:
+                req.scheduled_date = datetime.strptime(s_date, '%Y-%m-%d')
+        
+        duration = request.form.get('duration_hours')
+        req.duration_hours = float(duration) if duration else 0.0
+
+        db.session.commit()
+        flash('Request updated successfully!', 'success')
+        return redirect(url_for('maintenance.kanban_board'))
+
+    return render_template(
+        'maintenance/request_form.html',
+        equipment_list=Equipment.query.filter_by(is_scrapped=False).all(),
+        teams=MaintenanceTeams.query.all(),
+        users=User.query.all(),
+        maintenance_request=req
     )
 
 

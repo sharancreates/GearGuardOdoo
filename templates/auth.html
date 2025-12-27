@@ -9,27 +9,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../static/css/auth.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 </head>
 
 <body class="auth-bg">
     <div class="flip-container">
-        <div class="flipper" id="flipper">
+        <!-- Add 'flipped' class here if the backend says so -->
+        <div class="flipper {% if flip_to_signup %}flipped{% endif %}" id="flipper">
+
+            <!-- FRONT: LOGIN -->
             <div class="front glass-card shadow-lg">
                 <div class="auth-header">
                     <div class="logo-box"><i class="fas fa-bolt"></i></div>
                     <h3>Welcome Back</h3>
                     <p>Enter your credentials to continue</p>
                 </div>
+
+                <!-- Login Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages and not flip_to_signup %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} small py-2">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
                 <form id="loginForm" method="POST" action="{{ url_for('auth.login') }}">
                     <div class="mb-3">
                         <label class="form-label small fw-bold">WORK EMAIL</label>
                         <input type="email" class="form-control" placeholder="name@company.com" required name="email">
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-2">
                         <label class="form-label small fw-bold">PASSWORD</label>
                         <input type="password" class="form-control" placeholder="••••••••" required name="password">
                     </div>
+
+                    <div class="mb-4 text-end">
+                        <a href="{{ url_for('auth.forgot_password') }}"
+                            class="small text-muted text-decoration-none">Forgot Password?</a>
+                    </div>
+
                     <button type="submit" class="btn btn-primary-grad w-100 py-2 fw-bold mb-3">Login to
                         Dashboard</button>
                     <p class="text-center small">New user? <a href="#" id="toSignup" class="text-primary fw-bold">Create
@@ -37,17 +56,28 @@
                 </form>
             </div>
 
+            <!-- BACK: SIGNUP -->
             <div class="back glass-card shadow-lg">
                 <div class="auth-header">
                     <div class="logo-box"><i class="fas fa-user-plus"></i></div>
                     <h3>Join GearGaurd</h3>
                     <p>Start managing your teams and gear</p>
                 </div>
+
+                <!-- Signup Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages and flip_to_signup %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} small py-2">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
                 <form id="signupForm" method="POST" action="{{ url_for('auth.register') }}">
-                    <div class="row">
-                            <label class="form-label small fw-bold">NAME</label>
-                            <input type="text" class="form-control" placeholder="John" name="name" required>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">FULL NAME</label>
+                        <input type="text" class="form-control" placeholder="John Doe" name="name" required>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label small fw-bold">WORK EMAIL</label>
                         <input type="email" class="form-control" placeholder="name@company.com" required name="email">
@@ -55,6 +85,9 @@
                     <div class="mb-4">
                         <label class="form-label small fw-bold">CHOOSE PASSWORD</label>
                         <input type="password" class="form-control" placeholder="••••••••" name="password" required>
+                        <div class="form-text small mt-1">
+                            >8 chars, Upper, Lower, Special.
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary-grad w-100 py-2 fw-bold mb-3">Get Started</button>
                     <p class="text-center small">Have an account? <a href="#" id="toLogin"
@@ -63,8 +96,23 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/js/auth.js"></script>
+
+    <script>
+        // Simple Flip Logic
+        const flipper = document.getElementById('flipper');
+        const toSignup = document.getElementById('toSignup');
+        const toLogin = document.getElementById('toLogin');
+
+        toSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            flipper.classList.add('flipped');
+        });
+
+        toLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            flipper.classList.remove('flipped');
+        });
+    </script>
 </body>
 
 </html>

@@ -24,6 +24,11 @@ class User(db.Model, UserMixin):
     def get_id(self):
         return (self.user_id)
 
+    @property
+    def avatar_url(self):
+        # Return a simple placeholder based on name initials or just a generic one
+        return f"https://ui-avatars.com/api/?name={self.name}&background=random"
+
 class WorkCentres(db.Model):
     centre_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
@@ -58,7 +63,11 @@ class Equipment(db.Model):
     # Helper for "Smart Button" Badge
     @property
     def request_count(self):
-        return MaintenanceRequest.query.filter_by(equipment_id=self.equipment_id).count()
+        return len(self.requests)
+
+    @property
+    def open_request_count(self):
+        return len([r for r in self.requests if r.stage not in ['Repaired', 'Scrap']])
 
 class MaintenanceRequest(db.Model):
     request_id = db.Column(db.Integer, primary_key=True)
@@ -78,3 +87,11 @@ class MaintenanceRequest(db.Model):
     scheduled_date = db.Column(db.DateTime) 
     close_date = db.Column(db.DateTime)
     duration_hours = db.Column(db.Float, default=0.0)
+
+    @property
+    def is_overdue(self):
+        if self.stage in ['Repaired', 'Scrap']:
+            return False
+        if self.scheduled_date and self.scheduled_date < datetime.utcnow():
+            return True
+        return False

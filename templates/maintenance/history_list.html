@@ -1,39 +1,76 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Maintenance History</h2>
-    <h3>Machine: {{ equipment.name }} ({{ equipment.serial_number }})</h3>
+<div class="container py-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1">
+                    <li class="breadcrumb-item"><a href="{{ url_for('equipment.list_equipment') }}">Equipment</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ equipment.name }}</li>
+                </ol>
+            </nav>
+            <h2 class="text-indigo-gradient">Maintenance History</h2>
+        </div>
+        <a href="{{ url_for('equipment.edit_equipment', id=equipment.equipment_id) }}"
+            class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Equipment
+        </a>
+    </div>
 
-    <p>
-        <a href="{{ url_for('equipment.edit_equipment', id=equipment.equipment_id) }}"><- Back to Equipment Details</a>
-    </p>
-
-    <table border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>Date Created</th>
-                <th>Subject</th>
-                <th>Type</th>
-                <th>Assigned To</th>
-                <th>Stage</th>
-                <th>Duration (Hrs)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for req in requests %}
-            <tr>
-                <td>{{ req.created_at.strftime('%Y-%m-%d') }}</td>
-                <td>{{ req.subject }}</td>
-                <td>{{ req.request_type }}</td>
-                <td>{{ req.technician.name if req.technician else 'Unassigned' }}</td>
-                <td>{{ req.stage }}</td>
-                <td>{{ req.duration_hours }}</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="6" align="center">No maintenance history found for this machine.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="card shadow border-0 rounded-lg">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0" style="vertical-align: middle;">
+                <thead class="bg-light text-uppercase text-secondary text-xs font-weight-bolder">
+                    <tr>
+                        <th class="px-4 py-3">Date</th>
+                        <th class="px-4 py-3">Subject</th>
+                        <th class="px-4 py-3">Type</th>
+                        <th class="px-4 py-3">Technician</th>
+                        <th class="px-4 py-3">Stage</th>
+                        <th class="px-4 py-3 text-end">Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in requests %}
+                    <tr>
+                        <td class="px-4">{{ req.created_at.strftime('%Y-%m-%d') }}</td>
+                        <td class="px-4 fw-bold text-dark">{{ req.subject }}</td>
+                        <td class="px-4">
+                            <span
+                                class="badge {{ 'bg-success' if req.request_type == 'Preventive' else 'bg-warning' }}">
+                                {{ req.request_type }}
+                            </span>
+                        </td>
+                        <td class="px-4">
+                            {% if req.technician %}
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-primary text-white me-2"
+                                    style="width:25px; height:25px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem;">
+                                    {{ req.technician.name[0] }}
+                                </div>
+                                {{ req.technician.name }}
+                            </div>
+                            {% else %}
+                            <span class="text-muted">Unassigned</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-4">
+                            <span class="badge bg-light text-dark border">{{ req.stage }}</span>
+                        </td>
+                        <td class="px-4 text-end">{{ req.duration_hours }} h</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="fas fa-clipboard-list fa-3x mb-3 text-gray-300"></i>
+                            <p class="mb-0">No maintenance requests found.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

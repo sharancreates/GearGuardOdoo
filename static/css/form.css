@@ -7,10 +7,12 @@ form {
     background-color: #ffffff;
     padding: 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.1); /* Subtle shadow */
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.1);
+    /* Subtle shadow */
     max-width: 600px;
     margin: 0 auto;
-    border-top: 5px solid #4e73df; /* Indigo accent bar at top */
+    border-top: 5px solid #6366f1;
+    /* Indigo accent bar at top */
 }
 
 /* 2. Headings inside the form */
@@ -28,7 +30,8 @@ form label {
     display: block;
     font-weight: 700;
     font-size: 0.85rem;
-    color: #4e73df; /* Indigo labels */
+    color: #6366f1;
+    /* Indigo labels */
     margin-bottom: 0.5rem;
     margin-top: 1rem;
 }
@@ -44,7 +47,8 @@ form select {
     background-color: #f8f9fc;
     border: 1px solid #d1d3e2;
     border-radius: 8px;
-    box-sizing: border-box; /* Ensures padding doesn't break layout */
+    box-sizing: border-box;
+    /* Ensures padding doesn't break layout */
     transition: all 0.2s ease;
     display: block;
 }
@@ -54,13 +58,14 @@ form input:focus,
 form select:focus {
     outline: none;
     background-color: #ffffff;
-    border-color: #4e73df;
+    border-color: #6366f1;
     box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
 }
 
 /* 5. The "Save Equipment" Button */
 form button[type="submit"] {
-    background-color: #1cc88a; /* Success Green */
+    background-color: #1cc88a;
+    /* Success Green */
     color: white;
     border: none;
     padding: 0.9rem 1.5rem;
@@ -83,7 +88,7 @@ form button[type="submit"]:hover {
 }
 
 /* 6. The Cancel Link */
-form > a {
+form>a {
     display: block;
     text-align: center;
     margin-top: 1.2rem;
@@ -94,54 +99,126 @@ form > a {
     transition: color 0.2s;
 }
 
-form > a:hover {
-    color: #e74a3b; /* Red on hover */
+form>a:hover {
+    color: #e74a3b;
+    /* Red on hover */
 }
 
 /* =========================================
    SPECIAL ELEMENTS
    ========================================= */
 
-/* The "Auto-Fill" Grey Box */
-/* (This overrides the inline styles if you remove them from HTML) */
-.auto-fill-section {
-    background-color: #f1f3f9;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-top: 2rem;
-    border: 1px dashed #b7b9cc;
+/* =========================================
+   ODOO-STYLE SMART BUTTONS
+   ========================================= */
+.smart-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    gap: 10px;
 }
 
-/* The "View History" Smart Button above the form */
-a[href*="maintenance"] {
+.smart-button {
     display: inline-flex;
     align-items: center;
-    background-color: #ffffff;
-    color: #4e73df;
-    border: 2px solid #4e73df;
-    padding: 0.6rem 1.2rem;
-    border-radius: 50px;
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    padding: 0;
+    color: #495057;
     text-decoration: none;
+    font-size: 13px;
+    width: 140px;
+    height: 44px;
+    overflow: hidden;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.smart-button:hover {
+    background-color: #f8f9fa;
+    text-decoration: none;
+    color: #212529;
+    border-color: #adb5bd;
+}
+
+.smart-button-icon {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #6366f1;
+}
+
+.smart-button-text {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5px;
+    border-left: 1px solid #eee;
+    height: 100%;
+}
+
+.smart-button-value {
     font-weight: 700;
+    font-size: 1.1em;
+    color: #6366f1;
+}
+
+.smart-button-label {
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+/* =========================================
+   RIBBONS (SCRAPPED STATUS)
+   ========================================= */
+.ribbon-scrapped {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    /* Adjust based on container */
+    right: 0px;
+    pointer-events: none;
+}
+
+.ribbon-scrapped::before {
+    content: 'SCRAPPED';
+    position: absolute;
+    top: 30px;
+    right: -35px;
+    transform: rotate(45deg);
+    width: 200px;
+    background-color: #dc3545;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    font-weight: bold;
     font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-a[href*="maintenance"]:hover {
-    background-color: #4e73df;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(78, 115, 223, 0.25);
+/* Container fix to hold relative positioning for ribbon */
+.form-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    padding: 2rem;
+    overflow: hidden;
+    /* Clips the ribbon corners */
 }
 
-/* Badge inside the smart button */
-a[href*="maintenance"] span {
-    background-color: #e74a3b !important; /* Force red background */
-    color: white !important;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.8em;
-    margin-left: 8px;
+/* Update form styles to fit inside wrapper */
+form {
+    box-shadow: none;
+    padding: 0;
+    border-top: none;
+    max-width: 100%;
 }

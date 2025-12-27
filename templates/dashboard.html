@@ -1,37 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GearGuard Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<nav class="navbar">
-    <div class="container nav-container">
-        <a href="{{ url_for('main.dashboard') }}" class="nav-brand text-indigo-gradient">
-            <i class="fas fa-shield-alt me-2"></i>GearGuard
-        </a>
+{% block title %}GearGuard Dashboard{% endblock %}
 
-        <ul class="nav-menu">
-            <li><a href="{{ url_for('main.dashboard') }}" class="nav-link active">Dashboard</a></li>
-            <li><a href="{{ url_for('maintenance.kanban_board') }}" class="nav-link">Kanban</a></li>
-            <li><a href="{{ url_for('equipment.list_equipment') }}" class="nav-link">Equipment</a></li>
-            <li><a href="{{ url_for('maintenance.calendar_view') }}" class="nav-link">Calendar</a></li>
-        </ul>
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
 
-        <div class="nav-user">
-            <span class="user-name">Hi, {{ current_user.username }}</span>
-            <a href="{{ url_for('auth.logout') }}" class="btn-logout" title="Logout">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-        </div>
-    </div>
-</nav>
-
+{% block content %}
 <div class="container py-4">
 
     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -148,6 +123,4 @@
     </div>
 
 </div>
-
-</body>
-</html>
+{% endblock %}

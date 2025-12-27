@@ -1,6 +1,6 @@
 :root {
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
     --bg-gradient: linear-gradient(135deg, #193765d4 0%, #c3cfe2 100%);
     --card-border: rgba(255, 255, 255, 0.6);
 }
@@ -56,6 +56,11 @@ html {
 }
 
 /* UI Elements */
+.glass-card {
+    /* Styles now handled by front/back but keeping common props if needed */
+    width: 100%;
+}
+
 .logo-box {
     width: 50px;
     height: 50px;

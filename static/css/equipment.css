@@ -6,7 +6,7 @@ body {
 }
 
 h2 {
-    color: #4e73df;
+    color: #6366f1;
     font-weight: 800;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
@@ -15,7 +15,7 @@ h2 {
 /* --- The Add Button Link --- */
 a[href*="new"] {
     display: inline-block;
-    background-color: #4e73df;
+    background-color: #6366f1;
     color: white;
     padding: 0.6rem 1.2rem;
     text-decoration: none;
@@ -27,7 +27,7 @@ a[href*="new"] {
 }
 
 a[href*="new"]:hover {
-    background-color: #2e59d9;
+    background-color: #4f46e5;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(78, 115, 223, 0.3);
 }
@@ -40,14 +40,18 @@ br {
 /* --- The Table Styling --- */
 table {
     width: 100%;
-    border-collapse: separate; /* Allows for rounded corners */
+    border-collapse: separate;
+    /* Allows for rounded corners */
     border-spacing: 0;
     background-color: white;
-    border-radius: 12px; /* Round the card */
-    overflow: hidden; /* Clip inner content */
+    border-radius: 12px;
+    /* Round the card */
+    overflow: hidden;
+    /* Clip inner content */
     box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
     margin-top: 1.5rem;
-    border: none; /* remove default HTML border */
+    border: none;
+    /* remove default HTML border */
 }
 
 /* Header Row */
@@ -81,7 +85,8 @@ td {
 }
 
 tr:last-child td {
-    border-bottom: none; /* No border on last row */
+    border-bottom: none;
+    /* No border on last row */
 }
 
 /* Hover Effect for Rows */
@@ -93,7 +98,7 @@ tbody tr:hover {
 /* Serial Number: Monospace font for readability */
 td:nth-child(2) {
     font-family: 'Consolas', 'Monaco', monospace;
-    color: #4e73df;
+    color: #6366f1;
     font-weight: 600;
 }
 
@@ -105,7 +110,8 @@ td:nth-child(5) {
 
 /* --- Edit Action Link --- */
 td a {
-    color: #36b9cc; /* Info Cyan color */
+    color: #36b9cc;
+    /* Info Cyan color */
     text-decoration: none;
     font-weight: 600;
     font-size: 0.85rem;
