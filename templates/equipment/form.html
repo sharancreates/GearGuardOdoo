@@ -40,11 +40,15 @@
 
             <label>Equipment Name</label>
             <input type="text" name="name" value="{{ equipment.name if equipment else '' }}"
-                placeholder="e.g. CNC Machine X1" required>
+                placeholder="e.g. CNC Machine X1" required minlength="3">
 
             <label>Serial Number</label>
             <input type="text" name="serial_number" value="{{ equipment.serial_number if equipment else '' }}"
-                placeholder="e.g. SN-998877" required>
+                placeholder="e.g. SN-998877" required minlength="3">
+
+            <label>Purchase Date</label>
+            <input type="date" name="purchase_date"
+                value="{{ equipment.purchase_date if equipment and equipment.purchase_date else '' }}">
 
             <label>Category</label>
             <input type="text" name="category" value="{{ equipment.category if equipment else '' }}"

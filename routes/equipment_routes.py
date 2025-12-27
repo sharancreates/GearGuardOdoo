@@ -30,6 +30,12 @@ def new_equipment():
         category = request.form.get('category')
         purchase_date_str = request.form.get('purchase_date')
         
+        # Validation: Check Duplicate Serial
+        existing = Equipment.query.filter_by(serial_number=serial).first()
+        if existing:
+            flash(f'Serial Number "{serial}" already exists!', 'warning')
+            return redirect(url_for('equipment.new_equipment'))
+
         purchase_date = None
         if purchase_date_str:
             purchase_date = datetime.strptime(purchase_date_str, '%Y-%m-%d').date()
@@ -72,8 +78,16 @@ def edit_equipment(id):
     equipment = Equipment.query.get_or_404(id)
 
     if request.method == 'POST':
+        new_serial = request.form.get('serial_number')
+        
+        # Validation: Check Duplicate Serial (excluding self)
+        existing = Equipment.query.filter(Equipment.serial_number == new_serial, Equipment.equipment_id != id).first()
+        if existing:
+            flash(f'Serial Number "{new_serial}" is already used by another equipment!', 'warning')
+            return redirect(url_for('equipment.edit_equipment', id=id))
+
         equipment.name = request.form.get('name')
-        equipment.serial_number = request.form.get('serial_number')
+        equipment.serial_number = new_serial
         equipment.category = request.form.get('category')
         equipment.warranty_info = request.form.get('warranty_info')
         

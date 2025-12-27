@@ -147,7 +147,7 @@
             <label>Subject</label>
             <input type="text" name="subject" class="title-input"
                 value="{{ maintenance_request.subject if maintenance_request else '' }}"
-                placeholder="e.g. Broken Conveyor Belt" required>
+                placeholder="e.g. Broken Conveyor Belt" required minlength="5">
         </div>
 
         <div class="form-grid">
@@ -181,7 +181,8 @@
                     <label>Description</label>
                     <textarea name="description" rows="4"
                         style="width:100%; padding:0.75rem; border-radius:8px; border:1px solid #d1d3e2; background:#f8f9fc;"
-                        placeholder="Describe the issue...">{{ maintenance_request.description if maintenance_request else '' }}</textarea>
+                        placeholder="Describe the issue..." required
+                        minlength="10">{{ maintenance_request.description if maintenance_request else '' }}</textarea>
                 </div>
             </div>
 
