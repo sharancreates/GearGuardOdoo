@@ -1,7 +1,7 @@
 :root {
     --primary: #4f46e5;
     --primary-hover: #4338ca;
-    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --bg-gradient: linear-gradient(135deg, #193765d4 0%, #c3cfe2 100%);
     --card-border: rgba(255, 255, 255, 0.6);
 }
 

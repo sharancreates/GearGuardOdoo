@@ -1,89 +1,89 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GearGuard - Maintenance Tracker</title>
+    <link rel="stylesheet" href="../static/css/request_form.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="status-bar">
+            <div class="stage active">New Request</div>
+            <div class="stage">In Progress</div>
+            <div class="stage">Repaired</div>
+            <div class="stage">Scrap</div>
+        </header>
 
-{% block content %}
-    <h2>Create Maintenance Request</h2>
+        <main class="sketch-card">
+            <div class="form-header">
+                <label>Subject?</label>
+                <input type="text" class="title-input" placeholder="Test activity">
+            </div>
 
-    <form method="POST">
-        <label>Subject:</label><br>
-        <input type="text" name="subject" placeholder="e.g. Leaking Oil" required><br><br>
+            <div class="form-grid">
+                <div class="column">
+                    <div class="input-group">
+                        <label>Maintenance For:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="equip" name="m_for" value="equipment" checked>
+                            <label for="equip">Equipment</label>
+                            <input type="radio" id="wc" name="m_for" value="work_center">
+                            <label for="wc">Work Center</label>
+                        </div>
+                    </div>
 
-        <label>Equipment:</label><br>
-        <select name="equipment_id" id="equipment_id" required>
-            <option value="">Select Machine...</option>
-            {% for item in equipment_list %}
-            <option value="{{ item.equipment_id }}">{{ item.name }} ({{ item.serial_number }})</option>
-            {% endfor %}
-        </select><br><br>
+                    <div class="input-group" id="equip_field">
+                        <label>Equipment</label>
+                        <select>
+                            <option>Acer Laptop/LP/203/19281928</option>
+                        </select>
+                    </div>
 
-        <label>Request Type:</label><br>
-        <select name="request_type" id="request_type" required>
-            <option value="Corrective">Corrective (Breakdown)</option>
-            <option value="Preventive">Preventive (Scheduled)</option>
-        </select><br><br>
+                    <div class="input-group">
+                        <label>Category</label>
+                        <input type="text" placeholder="Computers">
+                    </div>
 
-        <div style="background-color: #f0f0f0; padding: 10px; border: 1px dashed black;">
-            <p><strong>Assignment Details (Auto-filled)</strong></p>
-            
-            <label>Assigned Team:</label><br>
-            <select name="team_id" id="team_id">
-                <option value="">(Auto-filled)</option>
-                {% for team in teams %}
-                <option value="{{ team.team_id }}">{{ team.name }}</option>
-                {% endfor %}
-            </select><br><br>
+                    <div class="input-group">
+                        <label>Request Date?</label>
+                        <input type="date" value="2025-12-28">
+                    </div>
+                </div>
 
-            <label>Assigned Technician:</label><br>
-            <select name="technician_id" id="technician_id">
-                <option value="">(Auto-filled)</option>
-                {% for user in users %}
-                <option value="{{ user.user_id }}">{{ user.name }}</option>
-                {% endfor %}
-            </select>
-        </div><br>
+                <div class="column">
+                    <div class="input-group">
+                        <label>Technician</label>
+                        <input type="text" placeholder="Mitchell Admin">
+                    </div>
+                    <div class="input-group">
+                        <label>Scheduled Date?</label>
+                        <input type="datetime-local">
+                    </div>
+                    <div class="input-group">
+                        <label>Duration</label>
+                        <div class="duration-box">
+                            <input type="text" value="00:00"> <span>hours</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Priority</label>
+                        <div class="stars">★★★☆☆</div>
+                    </div>
+                </div>
+            </div>
 
-        <div id="scheduled_date_wrapper" style="display:none;">
-            <label>Scheduled Date:</label><br>
-            <input type="date" name="scheduled_date"><br><br>
-        </div>
-
-        <label>Description:</label><br>
-        <textarea name="description" rows="3"></textarea><br><br>
-
-        <label>Priority:</label><br>
-        <select name="priority">
-            <option value="Normal">Normal</option>
-            <option value="High">High</option>
-        </select><br><br>
-
-        <button type="submit">Submit Request</button>
-    </form>
-{% endblock %}
-
-{% block scripts %}
-<script>
-document.getElementById('equipment_id').addEventListener('change', function() {
-    let eqId = this.value;
-    if(!eqId) return;
-
-    fetch('/api/equipment/' + eqId + '/details')
-        .then(response => response.json())
-        .then(data => {
-            if(data.default_team_id) {
-                document.getElementById('team_id').value = data.default_team_id;
-            }
-            if(data.default_technician_id) {
-                document.getElementById('technician_id').value = data.default_technician_id;
-            }
-        });
-});
-
-document.getElementById('request_type').addEventListener('change', function() {
-    let wrapper = document.getElementById('scheduled_date_wrapper');
-    if(this.value === 'Preventive') {
-        wrapper.style.display = 'block';
-    } else {
-        wrapper.style.display = 'none';
-    }
-});
-</script>
-{% endblock %}
+            <div class="tabs-container">
+                <div class="tab-headers">
+                    <button class="tab-btn active">Notes</button>
+                    <button class="tab-btn">Instructions</button>
+                </div>
+                <div class="tab-content">
+                    <textarea placeholder="Write maintenance notes here..."></textarea>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../static/js/request_form.js"></script>
+</body>
+</html>

@@ -1,22 +1,77 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GearGuard | Maintenance Calendar</title>
 
-{% block content %}
-    <h2>Preventive Calendar</h2>
-    <div id="calendar"></div>
-{% endblock %}
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-{% block scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: '/api/calendar/events',
-        eventClick: function(info) {
-            alert('Event: ' + info.event.title);
-        }
-    });
-    calendar.render();
-});
-</script>
-{% endblock %}
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
+</head>
+
+<body>
+<div class="dashboard-container">
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="logo-section"><i class="fas fa-bolt"></i> GearGuard</div>
+    <nav>
+        <a href="#"><i class="fas fa-th-large"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-users"></i> Teams</a>
+        <a href="#"><i class="fas fa-tools"></i> Equipment</a>
+        <a class="active"><i class="fas fa-calendar-alt"></i> Calendar</a>
+    </nav>
+</aside>
+
+<!-- Content -->
+<main class="content">
+<header class="content-header">
+    <div>
+        <p class="breadcrumb">Preventive Maintenance</p>
+        <h1>Monthly Schedule</h1>
+    </div>
+    <button class="today-btn">Today</button>
+</header>
+
+<div class="calendar-card">
+<div class="calendar-grid">
+
+<!-- Day Labels -->
+<div class="day-label">Sun</div><div class="day-label">Mon</div><div class="day-label">Tue</div>
+<div class="day-label">Wed</div><div class="day-label">Thu</div><div class="day-label">Fri</div><div class="day-label">Sat</div>
+
+<!-- Calendar Days -->
+<div id="calendarDays"></div>
+
+</div>
+</div>
+</main>
+</div>
+
+<!-- Modal -->
+<div id="maintenanceModal" class="modal hidden">
+    <div class="modal-content">
+        <h3>Schedule Maintenance</h3>
+        <p id="selectedDate"></p>
+
+        <input type="text" id="taskName" placeholder="Task Name">
+        <select id="priority">
+            <option value="low">Low Priority</option>
+            <option value="high">High Priority</option>
+        </select>
+
+        <div class="modal-actions">
+            <button id="closeModal">Cancel</button>
+            <button id="saveTask">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
+</body>
+</html>

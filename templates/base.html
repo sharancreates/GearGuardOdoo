@@ -2,40 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearGuard Maintenance</title>
+    {% block head %}{% endblock %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 </head>
-<body>
+<body class="bg-light">
 
-    <nav>
-        <h1>GearGuard</h1>
-        {% if current_user.is_authenticated %}
-        <ul>
-            <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('maintenance.kanban_board') }}">Kanban Board</a></li>
-            <li><a href="{{ url_for('equipment.list_equipment') }}">Equipment</a></li>
-            <li><a href="{{ url_for('maintenance.calendar_view') }}">Calendar</a></li>
-            <li>User: {{ current_user.username }} (<a href="{{ url_for('auth.logout') }}">Logout</a>)</li>
-        </ul>
-        {% endif %}
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('main.dashboard') }}">GearGuard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% if current_user.is_authenticated %}
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('maintenance.kanban_board') }}">Kanban Board</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('equipment.list_equipment') }}">Equipment</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('maintenance.calendar_view') }}">Calendar</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item"><span class="nav-link text-light">User: {{ current_user.username }}</span></li>
+                <li class="nav-item"><a class="btn btn-outline-light btn-sm ms-2" href="{{ url_for('auth.logout') }}">Logout</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
 
-    <hr>
-
+<div class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <ul>
             {% for category, message in messages %}
-                <li><strong>{{ category.upper() }}:</strong> {{ message }}</li>
+                <div class="alert alert-{{ category }}">{{ message }}</div>
             {% endfor %}
-            </ul>
         {% endif %}
     {% endwith %}
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    {% block content %}{% endblock %}
+</div>
 
-    {% block scripts %}{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

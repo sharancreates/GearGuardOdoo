@@ -25,7 +25,7 @@
                 <td>{{ req.created_at.strftime('%Y-%m-%d') }}</td>
                 <td>{{ req.subject }}</td>
                 <td>{{ req.request_type }}</td>
-                <td>{{ req.technician.username if req.technician else 'Unassigned' }}</td>
+                <td>{{ req.technician.name if req.technician else 'Unassigned' }}</td>
                 <td>{{ req.stage }}</td>
                 <td>{{ req.duration_hours }}</td>
             </tr>

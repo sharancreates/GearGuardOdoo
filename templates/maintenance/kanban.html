@@ -1,47 +1,112 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/kanban.css') }}">
+<script defer src="{{ url_for('static', filename='js/kanban.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-    <h2>Maintenance Kanban</h2>
-    <a href="{{ url_for('maintenance.new_request') }}">[+ New Request]</a>
-    <br><br>
+<div class="kanban-container">
 
-    <div style="border: 1px solid gray; margin: 10px; padding: 10px;">
-        <h3>NEW</h3>
-        {% for req in new_reqs %}
-            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
-                <strong>{{ req.subject }}</strong> ({{ req.equipment.name }})<br>
-                Priority: {{ req.priority }}<br>
-                <a href="{{ url_for('maintenance.update_stage', request_id=req.request_id, new_stage='In Progress') }}">Move to In Progress -></a>
-            </div>
-        {% endfor %}
+    <div class="kanban-header">
+        <h2>Maintenance Kanban</h2>
+        <a href="{{ url_for('maintenance.new_request') }}" class="btn-create">
+            + New Request
+        </a>
     </div>
 
-    <div style="border: 1px solid orange; margin: 10px; padding: 10px;">
-        <h3>IN PROGRESS</h3>
-        {% for req in progress_reqs %}
-            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
-                <strong>{{ req.subject }}</strong> ({{ req.equipment.name }})<br>
-                <a href="{{ url_for('maintenance.update_stage', request_id=req.request_id, new_stage='Repaired') }}">Mark Done -></a>
-            </div>
-        {% endfor %}
-    </div>
+    <div class="kanban-board">
 
-    <div style="border: 1px solid green; margin: 10px; padding: 10px;">
-        <h3>REPAIRED</h3>
-        {% for req in repaired_reqs %}
-            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
-                <strong>{{ req.subject }}</strong> ({{ req.equipment.name }})
+        <!-- NEW -->
+        <div class="kanban-col" data-stage="New">
+            <div class="col-title border-new">
+                NEW <span class="badge-pill">{{ new_reqs|length }}</span>
             </div>
-        {% endfor %}
-    </div>
 
-    <div style="border: 1px solid black; background-color: #eee; margin: 10px; padding: 10px;">
-        <h3>SCRAP</h3>
-        {% for req in scrap_reqs %}
-            <div style="border: 1px solid black; padding: 5px; margin-bottom: 5px;">
-                <strike>{{ req.subject }}</strike><br>
+            {% for req in new_reqs %}
+            <div class="task-card animate-in {{ 'is-overdue' if req.is_overdue else '' }}"
+                 draggable="true"
+                 data-id="{{ req.request_id }}">
+
+                <div class="priority-strip {{ req.priority|lower }}"></div>
+
+                <div class="task-title">{{ req.subject }}</div>
+                <div class="task-asset">
+                    {{ req.equipment.name if req.equipment else 'No Equipment' }}
+                </div>
+
+                <div class="task-footer">
+                    {% if req.technician %}
+                        <img src="{{ req.technician.avatar_url }}"
+                             class="technician-avatar"
+                             alt="Technician">
+                    {% endif %}
+
+                    <span class="priority-label {{ req.priority|lower }}">
+                        {{ req.priority }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- IN PROGRESS -->
+        <div class="kanban-col" data-stage="In Progress">
+            <div class="col-title border-progress">
+                IN PROGRESS <span class="badge-pill">{{ progress_reqs|length }}</span>
+            </div>
+
+            {% for req in progress_reqs %}
+            <div class="task-card animate-in"
+                 draggable="true"
+                 data-id="{{ req.request_id }}">
+
+                <div class="priority-strip {{ req.priority|lower }}"></div>
+
+                <div class="task-title">{{ req.subject }}</div>
+                <div class="task-asset">
+                    {{ req.equipment.name if req.equipment else 'No Equipment' }}
+                </div>
+
+                <div class="task-footer">
+                    <span class="priority-label {{ req.priority|lower }}">
+                        {{ req.priority }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- REPAIRED -->
+        <div class="kanban-col" data-stage="Repaired">
+            <div class="col-title border-repaired">
+                REPAIRED <span class="badge-pill">{{ repaired_reqs|length }}</span>
+            </div>
+
+            {% for req in repaired_reqs %}
+            <div class="task-card animate-in">
+                <div class="task-title">{{ req.subject }}</div>
+                <div class="task-asset">
+                    {{ req.equipment.name if req.equipment else 'No Equipment' }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- SCRAP -->
+        <div class="kanban-col" data-stage="Scrap">
+            <div class="col-title border-scrap">
+                SCRAP <span class="badge-pill">{{ scrap_reqs|length }}</span>
+            </div>
+
+            {% for req in scrap_reqs %}
+            <div class="task-card scrapped animate-in">
+                <div class="task-title">{{ req.subject }}</div>
                 <small>Scrapped</small>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+
     </div>
+</div>
 {% endblock %}

@@ -17,10 +17,6 @@ def get_equipment_details(id):
 
 @api_bp.route('/calendar/events')
 def get_calendar_events():
-    """
-    Returns Preventive Maintenance requests in a format FullCalendar understands.
-    Source: [61-63] "Display all Preventive maintenance requests."
-    """
     events = MaintenanceRequest.query.filter_by(
         request_type='Preventive'
     ).filter(MaintenanceRequest.scheduled_date.isnot(None)).all()
