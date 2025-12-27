@@ -6,7 +6,6 @@ I built **GearGuard** because managing equipment repairs with spreadsheets or pa
 
 It’s built on **Flask** (Python) and uses a custom-styled interface that’s clean, responsive, and easy to look at all day.
 
----
 
 ## Key Features
 
@@ -27,7 +26,6 @@ I chose this stack for speed and reliability:
 * **Frontend:** Jinja2 templates with **custom CSS** (No heavy frameworks like React, just clean HTML/CSS and vanilla JS).
 * **Auth:** Flask-Login for secure user sessions.
 
----
 
 ## How to Run It
 
@@ -73,7 +71,6 @@ Since the database is seeded with dummy data, you can use these accounts to test
 * **Manager Account:** `manager@gearguard.com` / `password123`
 * **Technician Account:** `john@gearguard.com` / `password123`
 
----
 
 ## How the Code is Organized
 
